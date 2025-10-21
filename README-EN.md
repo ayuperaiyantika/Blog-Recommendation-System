@@ -1,0 +1,160 @@
+# Blog Recommendation System – Agung Besti
+
+***
+
+# Project Overview
+
+An article is a written piece containing information or opinions on a specific topic. Articles are commonly published in print media, websites, blogs, or content-sharing platforms. Most articles have a general structure consisting of a title, an introduction, a body containing detailed information or arguments, and a conclusion. Some articles may also include images, charts, or quotations to support and illustrate key points. 
+
+Medium itself is a publishing and content-sharing platform that enables writers and readers to connect and interact. One of the most common challenges for readers is deciding which articles to read next. This difficulty arises due to the vast number of available articles and their varied topics.[1]
+
+One effective way to increase visitor engagement on a website is by implementing a recommendation system. A recommendation system provides relevant article suggestions to users searching for technology-related content on Medium .
+
+Therefore, an application capable of accurately providing relevant reading recommendations is needed to enhance user satisfaction and increase website engagement.  
+
+In this project, a machine learning-based application specifically recommends blogs for users to read next, thus improving user satisfaction and increasing website visits.
+
+***
+
+## Key Reasons Behind This Project
+
+The importance of blog recommendation problems can be summarized as follows:
+
+- Irrelevant article recommendations lead to a **decrease in website/blog visits**.  
+- The vast amount and diversity of information available present a challenge when **a lot of generated content is not what users seek**.  
+- To address this issue, an application is developed to recommend the next blog to read, helping users **gain more detailed insights into topics they are interested in**.  
+- The application utilizes **Machine Learning** and **Python** to create a **blog recommendation system that determines the next article reference to read**.
+
+***
+
+# Business Understanding
+
+As described above, there is a need for an application or program capable of **recommending what article should be read next** by blog visitors.  
+
+A system that provides relevant article suggestions can **enhance visitor satisfaction** and **increase engagement** on the blog site.
+
+***
+
+## Problem Statements
+
+Based on the description above, the research problems can be formulated as follows:
+
+- How can relevant article recommendations be provided to users based on their preferences and ratings?
+- How can the **Content-Based Filtering** method generate article recommendations for site visitors?
+- How can the **Collaborative Filtering** method generate article recommendations for site visitors?
+- Which method yields the most relevant articles between **Cosine Similarity** and **Euclidean Distance** approaches in Content-Based Filtering?
+
+***
+
+## Goals
+
+The objectives of developing this blog recommendation system are as follows:
+
+- To generate relevant article recommendations for visitors based on preferences and ratings.  
+- To produce personalized article recommendations using **Content-Based Filtering**.  
+- To produce user-preference-based recommendations using **Collaborative Filtering**.  
+- To compare results from **Cosine Similarity** and **Euclidean Distance** models and evaluate their **Precision**.
+
+***
+
+### Solution Approach
+
+To address these issues, an application is developed using **Machine Learning** and **Python**, applying both **Content-Based Filtering** and **Collaborative Filtering** methods .
+
+**Content-Based Filtering** examines the similarity between new and existing articles based on their features.  
+**Collaborative Filtering** evaluates articles using other users’ ratings to generate new recommendations.  
+
+The **Content-Based** model applies **Cosine Similarity** and **Euclidean Distance**, while the **Collaborative Filtering** model uses a deep learning method called **RecommenderNet**.
+
+***
+
+# Data Understanding
+
+The dataset used is from Kaggle, containing Medium blogs on technology topics.  
+Dataset link: Blog Recommendation Data on Kaggle.
+
+The dataset includes:
+- **Author Data.csv**: 6,868 rows of author information.  
+- **Medium Blog Data.csv**: 10,467 rows of blog posts.  
+- **Blog Ratings.csv**: 200,140 records with `blog_id`, `user_id`, and `ratings` columns.
+
+### Variable Description
+**Author Data.csv**
+- `author_id`: unique ID of the blog author  
+- `author_name`: name of the author  
+
+**Medium Blog Data.csv**  
+- `blog_id`: unique blog ID  
+- `author_id`: blog author ID  
+- `blog_title`: blog title  
+- `blog_content`: blog summary  
+- `blog_link`: blog URL  
+- `blog_img`: blog image  
+- `topic`: blog topic  
+- `scrape_time`: data retrieval time  
+
+**Blog Ratings.csv**  
+- `blog_id`: unique blog ID  
+- `userId`: user ID  
+- `ratings`: user-given rating  
+
+***
+
+# Data Preparation
+
+1. **Remove unnecessary columns** (`author_id`, `blog_link`, `blog_img`, `scrape_time`).  
+2. **Remove duplicates** based on `blog_title` and `blog_content`.  
+3. **Text preprocessing**: remove stopwords, apply lemmatization.  
+4. **Encode** `userId` and `blog_id`.  
+5. **Split dataset**: 80% training, 20% validation.
+
+The normalized rating is computed as:
+
+$$
+Rating_{norm} = \dfrac{rating - min(rating)}{max(rating) - min(rating)}
+$$
+
+***
+
+# Modeling
+
+Two main approaches are applied:  
+**A. Content-Based Filtering** – finds similar articles using **Cosine Similarity** or **Euclidean Distance** based on TF-IDF features.  
+**B. Collaborative Filtering** – predicts ratings using **RecommenderNet** neural network embeddings.
+
+***
+
+# Evaluation
+
+**Content-Based Filtering** is evaluated using **Precision**, while **Collaborative Filtering** uses **Root Mean Square Error (RMSE)**.
+
+**Precision formula:**
+
+$$
+Precision = \dfrac{TP}{TP + FP}
+$$
+
+**RMSE formula:**
+
+$$
+RMSE  = \sqrt{\sum_{i=1}^{n}\dfrac{(\hat y _i - y_i)}{n}}
+$$
+
+The model optimized with **RMSprop** achieved better performance with RMSE = **0.3970**, outperforming **Adam**.
+
+***
+
+# Conclusion
+
+1. Blogs with **AI topics** are the most frequently written.  
+2. Ratings are mostly high (5/5), showing positive user satisfaction.  
+3. Both **Cosine Similarity** and **Euclidean Distance** achieved **100% precision** in relevance, differing only in result ranking.  
+4. The **Collaborative Filtering** model using **RMSprop** performed best with RMSE = **0.3970**.
+
+***
+
+# References
+
+ Girsang, A. S., Al Faruq, B., Herlianto, H. R., & Simbolon, S. (2020). *Collaborative Recommendation System in Users of Anime Films.* Journal of Physics: Conference Series, 1566(1).[1]
+ Reynaldi, & Istiono, W. (2023). *Content-based Filtering and Web Scraping in Website for Recommended Anime.* Asian Journal of Research in Computer Science, 15(2), 32–42.  
+ Afoudi, Y., Lazaar, M., & Al Achhab, M. (2021). *Hybrid recommendation system combined content-based filtering and collaborative prediction using artificial neural network.* Simulation Modelling Practice and Theory, 113.  
